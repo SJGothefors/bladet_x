@@ -1,0 +1,113 @@
+import { useState } from 'react';
+import { MessageCircle, Share2, Clock } from 'lucide-react';
+import { Button } from './ui/button';
+import { ReactionButton } from './ReactionButton';
+import { Article, Comment } from '../data/mockData';
+import { formatDistanceToNow } from 'date-fns';
+
+interface ArticleCardProps {
+  article: Article;
+  comments: Comment[];
+  onArticleClick: () => void;
+  onCommentClick: () => void;
+  onShare: () => void;
+  onReactionChange: (reaction: 'like' | 'thumbsUp' | 'smile' | 'angry') => void;
+}
+
+export function ArticleCard({ 
+  article, 
+  comments, 
+  onArticleClick, 
+  onCommentClick, 
+  onShare,
+  onReactionChange 
+}: ArticleCardProps) {
+  return (
+    <div 
+      className="relative h-screen w-full bg-cover bg-center cursor-pointer touch-callout-none user-select-none"
+      style={{ backgroundImage: `url(${article.imageUrl})` }}
+      onClick={onArticleClick}
+    >
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-overlay" />
+      
+      {/* Content */}
+      <div className="relative h-full flex flex-col justify-end p-6 pb-24">
+        <div className="space-y-4 animate-fade-up">
+          {/* Category Badge */}
+          <div className="inline-block">
+            <span className="px-3 py-1 bg-primary/20 backdrop-glass text-primary-foreground text-xs font-medium rounded-full">
+              {article.category}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-bold leading-tight text-white">
+            {article.title}
+          </h1>
+
+          {/* Summary */}
+          <p className="text-gray-100 leading-relaxed max-w-lg">
+            {article.summary}
+          </p>
+
+          {/* Author and Time */}
+          <div className="flex items-center space-x-4 text-sm text-gray-300">
+            <span>{article.author}</span>
+            <div className="flex items-center space-x-1">
+              <Clock className="w-4 h-4" />
+              <span>{formatDistanceToNow(new Date(article.publishedAt), { addSuffix: true })}</span>
+            </div>
+          </div>
+
+           {/* Actions */}
+           <div className="flex items-center space-x-6">
+             <div onClick={(e) => e.stopPropagation()}>
+               <ReactionButton
+                 reactions={article.reactions}
+                 userReaction={article.userReaction}
+                 onReactionChange={onReactionChange}
+               />
+             </div>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCommentClick();
+              }}
+              className="flex items-center space-x-2 text-sm text-white hover:text-white hover:bg-white/10"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>{comments.length}</span>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onShare();
+              }}
+              className="flex items-center space-x-2 text-sm text-white hover:text-white hover:bg-white/10"
+            >
+              <Share2 className="w-5 h-5" />
+              <span>Share</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Swipe Indicator */}
+      <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+        <div className="flex flex-col space-y-2 text-white/60">
+          <div className="w-1 h-8 bg-white/20 rounded-full" />
+          <div className="text-xs rotate-90 origin-center whitespace-nowrap">
+            Swipe or tap →
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
