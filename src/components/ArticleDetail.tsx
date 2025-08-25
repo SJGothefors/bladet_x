@@ -1,7 +1,7 @@
 import { ArrowLeft, MessageCircle, Share2, Clock, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { ReactionButton } from './ReactionButton';
-import { Article, Comment } from '../data/mockData';
+import {Article, Comment} from "@/data/classes.ts";
 import { format } from 'date-fns';
 
 interface ArticleDetailProps {

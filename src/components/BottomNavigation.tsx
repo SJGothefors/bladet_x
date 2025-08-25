@@ -1,5 +1,9 @@
 import { Home, Video, Headphones, Menu } from 'lucide-react';
 import { Button } from './ui/button';
+import {useState} from "react";
+import PodcastPage from "@/pages/PodcastPage.tsx";
+import MenuPage from "@/pages/MenuPage.tsx";
+import VideoPage from "@/pages/VideoPage.tsx";
 
 interface BottomNavigationProps {
   activeTab: string;

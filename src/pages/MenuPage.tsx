@@ -1,4 +1,4 @@
-import { User, Heart, Settings, FileText, LogOut, ArrowLeft } from 'lucide-react';
+import { User, Bell, Settings, FileText, LogOut, ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 
@@ -9,7 +9,7 @@ interface MenuPageProps {
 export default function MenuPage({ onBackToStart }: MenuPageProps) {
   const menuItems = [
     { icon: User, label: 'Profile Settings', description: 'Manage your account' },
-    { icon: Heart, label: 'Leave a Tip', description: 'Support quality journalism' },
+    { icon: Bell, label: 'Tipsa the news', description: 'Help to spread the news' },
     { icon: Settings, label: 'More Categories', description: 'Discover new topics' },
     { icon: FileText, label: 'GDPR & Privacy', description: 'Data protection info' },
     { icon: LogOut, label: 'Logout', description: 'Sign out of your account' },
@@ -64,7 +64,13 @@ export default function MenuPage({ onBackToStart }: MenuPageProps) {
 
         <div className="mt-12 text-center">
           <p className="text-xs text-muted-foreground">
-            Bladet X v1.0.0 • Made with ❤️ for quality news
+            Quality news for everyone
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Schibsted Media | Made by Gothefors
+          </p>
+          <p className="text-xs text-muted-foreground">
+            v1.0.0
           </p>
         </div>
       </div>

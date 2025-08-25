@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MessageCircle, Share2, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { ReactionButton } from './ReactionButton';
-import { Article, Comment } from '../data/mockData';
+import {Article, Comment} from "@/data/classes.ts";
 import { formatDistanceToNow } from 'date-fns';
 
 interface ArticleCardProps {

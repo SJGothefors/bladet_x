@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, MessageCircle, Send, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
-import { Comment } from '../data/mockData';
+import {Comment} from "@/data/classes.ts";
 import { formatDistanceToNow } from 'date-fns';
 
 interface CommentViewProps {
