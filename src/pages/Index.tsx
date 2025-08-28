@@ -164,21 +164,21 @@ const Index = () => {
     setShowArticleDetail(false);
   };
 
-  const handleReactionChange = (articleId: string, reaction: 'like' | 'thumbsUp' | 'smile' | 'angry') => {
+  const handleReactionChange = (articleId: string, reaction: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star') => {
     setArticles(prev => prev.map(article => {
       if (article.id === articleId) {
         const newReactions = { ...article.reactions };
         
         // Remove previous reaction if exists
-        if (article.userReaction) {
-          newReactions[article.userReaction] = Math.max(0, newReactions[article.userReaction] - 1);
+        if (article.userReaction && newReactions[article.userReaction] !== undefined) {
+          newReactions[article.userReaction] = Math.max(0, newReactions[article.userReaction]! - 1);
         }
         
         // Add new reaction or toggle off if same
         if (article.userReaction === reaction) {
           return { ...article, userReaction: undefined };
         } else {
-          newReactions[reaction] += 1;
+          newReactions[reaction] = (newReactions[reaction] || 0) + 1;
           return { ...article, reactions: newReactions, userReaction: reaction };
         }
       }
@@ -246,8 +246,8 @@ const Index = () => {
   };
 
   // Render different pages based on active tab
-  if (activeTab === 'video') return <VideoPage />;
-  if (activeTab === 'podcast') return <PodcastPage />;
+  if (activeTab === 'video') return <VideoPage activeTab={activeTab} onTabChange={setActiveTab} />;
+  if (activeTab === 'podcast') return <PodcastPage activeTab={activeTab} onTabChange={setActiveTab} />;
   if (activeTab === 'menu') return <MenuPage onBackToStart={() => setActiveTab('start')} />;
 
   const currentArticle = filteredArticles[currentArticleIndex];
@@ -255,8 +255,8 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
-      {/* Header - Only show on start tab */}
-      {activeTab === 'start' && (
+      {/* Header - Only show on start tab and not in comments */}
+      {activeTab === 'start' && !showComments && (
         <NewsHeader 
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
@@ -281,6 +281,8 @@ const Index = () => {
             onCommentClick={() => handleComment(currentArticle)}
             onShare={() => handleShare(currentArticle)}
             onReactionChange={(reaction) => handleReactionChange(currentArticle.id, reaction)}
+            activeCategory={activeCategory}
+            onCategoryChange={handleCategoryChange}
           />
         ) : (
           <div className="relative h-screen overflow-hidden">
@@ -311,7 +313,13 @@ const Index = () => {
       {/* Bottom Navigation */}
       <BottomNavigation 
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={(tab) => {
+          if (tab === 'start' && showArticleDetail) {
+            setShowArticleDetail(false);
+          } else {
+            setActiveTab(tab);
+          }
+        }}
       />
     </div>
   );

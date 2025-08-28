@@ -11,7 +11,7 @@ interface ArticleCardProps {
   onArticleClick: () => void;
   onCommentClick: () => void;
   onShare: () => void;
-  onReactionChange: (reaction: 'like' | 'thumbsUp' | 'smile' | 'angry') => void;
+  onReactionChange: (reaction: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star') => void;
 }
 
 export function ArticleCard({ 
@@ -34,11 +34,16 @@ export function ArticleCard({
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end p-6 pb-24">
         <div className="space-y-4 animate-fade-up">
-          {/* Category Badge */}
-          <div className="inline-block">
+          {/* Category Badge and Location */}
+          <div className="flex items-center space-x-2">
             <span className="px-3 py-1 bg-primary/20 backdrop-glass text-primary-foreground text-xs font-medium rounded-full">
               {article.category}
             </span>
+            {article.showLocation && (
+              <span className="px-2 py-1 bg-muted/20 text-muted-foreground text-xs rounded-full">
+                📍 {article.location}
+              </span>
+            )}
           </div>
 
           {/* Title */}
@@ -63,11 +68,12 @@ export function ArticleCard({
            {/* Actions */}
            <div className="flex items-center space-x-6">
              <div onClick={(e) => e.stopPropagation()}>
-               <ReactionButton
-                 reactions={article.reactions}
-                 userReaction={article.userReaction}
-                 onReactionChange={onReactionChange}
-               />
+                <ReactionButton
+                  reactions={article.reactions}
+                  userReaction={article.userReaction}
+                  onReactionChange={onReactionChange}
+                  availableReactions={article.availableReactions}
+                />
              </div>
             
             <Button

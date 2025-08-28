@@ -7,13 +7,20 @@ export interface Article {
     author: string;
     publishedAt: string;
     imageUrl: string;
+    location: string;
+    showLocation?: boolean;
     reactions: {
-        likes: number;
-        thumbsUp: number;
-        smiles: number;
-        angry: number;
+        like?: number;
+        thumbsUp?: number;
+        smile?: number;
+        angry?: number;
+        thumbsDown?: number;
+        crying?: number;
+        hearteyes?: number;
+        star?: number;
     };
-    userReaction?: 'like' | 'thumbsUp' | 'smile' | 'angry';
+    userReaction?: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star';
+    availableReactions: ('like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star')[];
 }
 
 export interface Comment {

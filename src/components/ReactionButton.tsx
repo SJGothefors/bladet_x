@@ -1,31 +1,42 @@
 import { useState } from 'react';
-import { Heart, ThumbsUp, Smile, Frown, ChevronUp } from 'lucide-react';
+import { Heart, ThumbsUp, Smile, Frown, ThumbsDown, Zap, Star, Eye, ChevronUp } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 
 interface ReactionButtonProps {
   reactions: {
-    likes: number;
-    thumbsUp: number;
-    smiles: number;
-    angry: number;
+    like?: number;
+    thumbsUp?: number;
+    smile?: number;
+    angry?: number;
+    thumbsDown?: number;
+    crying?: number;
+    hearteyes?: number;
+    star?: number;
   };
-  userReaction?: 'like' | 'thumbsUp' | 'smile' | 'angry';
-  onReactionChange: (reaction: 'like' | 'thumbsUp' | 'smile' | 'angry') => void;
+  userReaction?: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star';
+  onReactionChange: (reaction: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star') => void;
+  availableReactions: ('like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star')[];
 }
 
-export function ReactionButton({ reactions, userReaction, onReactionChange }: ReactionButtonProps) {
+export function ReactionButton({ reactions, userReaction, onReactionChange, availableReactions }: ReactionButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const reactionTypes = [
-    { id: 'like', icon: Heart, count: reactions.likes, color: 'text-news-heart' },
-    { id: 'thumbsUp', icon: ThumbsUp, count: reactions.thumbsUp, color: 'text-news-thumbs' },
-    { id: 'smile', icon: Smile, count: reactions.smiles, color: 'text-news-smile' },
-    { id: 'angry', icon: Frown, count: reactions.angry, color: 'text-news-angry' },
+  const allReactionTypes = [
+    { id: 'like', icon: Heart, count: reactions.like || 0, color: 'text-news-heart' },
+    { id: 'thumbsUp', icon: ThumbsUp, count: reactions.thumbsUp || 0, color: 'text-news-thumbs' },
+    { id: 'smile', icon: Smile, count: reactions.smile || 0, color: 'text-news-smile' },
+    { id: 'angry', icon: Frown, count: reactions.angry || 0, color: 'text-news-angry' },
+    { id: 'thumbsDown', icon: ThumbsDown, count: reactions.thumbsDown || 0, color: 'text-red-500' },
+    { id: 'crying', icon: Zap, count: reactions.crying || 0, color: 'text-blue-500' },
+    { id: 'hearteyes', icon: Eye, count: reactions.hearteyes || 0, color: 'text-pink-500' },
+    { id: 'star', icon: Star, count: reactions.star || 0, color: 'text-yellow-500' },
   ] as const;
 
+  const reactionTypes = allReactionTypes.filter(r => availableReactions.includes(r.id));
+
   const mainReaction = reactionTypes.find(r => r.id === userReaction) || reactionTypes[0];
-  const totalReactions = reactions.likes + reactions.thumbsUp + reactions.smiles + reactions.angry;
+  const totalReactions = Object.values(reactions).reduce((sum, count) => sum + (count || 0), 0);
 
   return (
     <div className="relative">

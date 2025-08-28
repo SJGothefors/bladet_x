@@ -119,7 +119,7 @@ export function CommentView({ comments, onBack, onAddComment, onLikeComment }: C
   return (
     <div className="h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 bg-background/95 backdrop-glass border-b border-border p-4 z-50">
+      <div className="sticky top-0 bg-background/95 backdrop-glass border-b border-border p-4 z-50 mt-0">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"

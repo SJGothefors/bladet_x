@@ -22,16 +22,25 @@ export function NavigationButtons({ currentIndex, totalArticles, onNext, onPrev 
         <ChevronUp className="w-5 h-5 text-white" />
       </Button>
 
-      {/* Article Indicators */}
+      {/* Article Indicators - Show only 5 dots dynamically */}
       <div className="flex flex-col space-y-1 py-2">
-        {Array.from({ length: totalArticles }, (_, index) => (
-          <button
-            key={index}
-            className={`w-1 h-6 rounded-full transition-all duration-200 ${
-              index === currentIndex ? 'bg-accent' : 'bg-white/30 hover:bg-white/50'
-            }`}
-          />
-        ))}
+        {Array.from({ length: Math.min(5, totalArticles) }, (_, i) => {
+          // Calculate which articles to show based on current position
+          let startIndex = Math.max(0, currentIndex - 2);
+          if (startIndex + 5 > totalArticles) {
+            startIndex = Math.max(0, totalArticles - 5);
+          }
+          const articleIndex = startIndex + i;
+          
+          return (
+            <button
+              key={i}
+              className={`w-1 h-6 rounded-full transition-all duration-200 ${
+                articleIndex === currentIndex ? 'bg-accent' : 'bg-white/30 hover:bg-white/50'
+              }`}
+            />
+          );
+        })}
       </div>
 
       {/* Next Article Button */}
