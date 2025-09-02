@@ -47,7 +47,7 @@ export function NewsHeader({ activeCategory, onCategoryChange, isScrolled, onMal
           {activeCategory === 'Sports' && !isScrolled && onMalServiceClick && (
             <button
               onClick={onMalServiceClick}
-              className="w-full py-2 px-1 text-sm font-medium transition-all duration-200 border-b-2 text-accent border-accent hover:bg-accent/10"
+              className="w-full py-2 px-1 text-sm font-medium transition-all duration-200 border-b-2 text-muted-foreground hover:text-foreground border-transparent hover:border-muted"
             >
               - Mål service -
             </button>
