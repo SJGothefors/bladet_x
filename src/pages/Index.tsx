@@ -259,13 +259,13 @@ const Index = () => {
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Header - Only show on start tab and not in comments */}
-      {activeTab === 'start' && !showComments && (
-        <NewsHeader 
-          activeCategory={activeCategory}
-          onCategoryChange={handleCategoryChange}
-          isScrolled={isScrolled}
-          onMalServiceClick={() => setShowMalService(true)}
-        />
+      {activeTab === 'start' && !showComments && !showArticleDetail && (
+          <NewsHeader
+              activeCategory={activeCategory}
+              onCategoryChange={handleCategoryChange}
+              isScrolled={isScrolled}
+              onMalServiceClick={() => setShowMalService(true)}
+          />
       )}
 
       {/* Main Content */}
