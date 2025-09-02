@@ -10,7 +10,7 @@ interface NewsHeaderProps {
 
 export function NewsHeader({ activeCategory, onCategoryChange, isScrolled, onMalServiceClick }: NewsHeaderProps) {
   return (
-    <div 
+    <div
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'h-16 bg-background/95 backdrop-glass border-b border-border' : 'h-28 bg-transparent'
       }`}

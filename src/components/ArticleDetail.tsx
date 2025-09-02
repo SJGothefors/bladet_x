@@ -47,31 +47,14 @@ export function ArticleDetail({
 
   return (
     <div className="h-screen overflow-y-auto bg-background article-detail-container">
-      {/* News Header - Collapses on scroll */}
+      {/* News Header - Always shrunken in article view */}
       <NewsHeader 
         activeCategory={activeCategory}
         onCategoryChange={onCategoryChange}
         isScrolled={isScrolled}
       />
 
-      {/* Back Button - Fixed position when categories are collapsed */}
-      <div className={`sticky bg-background/95 backdrop-glass border-b border-border p-4 z-50 transition-all duration-300 ${
-        isScrolled ? 'top-16' : 'top-28'
-      }`}>
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onBack}
-            className="p-2 hover:bg-accent/10"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <span className="text-sm text-muted-foreground">Back to feed</span>
-        </div>
-      </div>
-
-      <div className="p-6 pb-24 max-w-4xl mx-auto" style={{ paddingTop: '2rem' }}>
+      <div className="p-6 pb-24 max-w-4xl mx-auto" style={{ paddingTop: '6rem' }}>
         {/* Category and Location */}
         <div className="mb-6 flex items-center gap-3 flex-wrap">
           <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
@@ -110,7 +93,7 @@ export function ArticleDetail({
           </div>
           <div className="text-right">
             <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-4 h-4 hidden md:block" />
               <span>{format(new Date(article.publishedAt), 'PPP')}</span>
             </div>
             <p className="text-xs text-muted-foreground mt-1">
@@ -145,7 +128,8 @@ export function ArticleDetail({
 
         {/* Actions */}
         <div className="p-4 bg-card rounded-lg">
-          <div className="flex items-center justify-between">
+          {/* Desktop/tablet layout - all buttons in one row */}
+          <div className="hidden md:flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <ReactionButton
                 reactions={article.reactions}
@@ -160,32 +144,52 @@ export function ArticleDetail({
                 onClick={onCommentClick}
                 className="flex items-center space-x-2"
               >
-                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="text-sm sm:text-base">{comments.length} Comments</span>
+                <MessageCircle className="w-5 h-5" />
+                <span>{comments.length} Comments</span>
               </Button>
             </div>
             
-            {/* Share button on tablet/desktop - same row */}
-            <div className="hidden md:block">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onShare}
-                className="flex items-center space-x-2"
-              >
-                <Share2 className="w-5 h-5" />
-                <span>Share</span>
-              </Button>
-            </div>
-          </div>
-          
-          {/* Share button on mobile - separate row */}
-          <div className="md:hidden mt-4">
             <Button
               variant="ghost"
               size="sm"
               onClick={onShare}
-              className="flex items-center space-x-2 w-full justify-center"
+              className="flex items-center space-x-2"
+            >
+              <Share2 className="w-5 h-5" />
+              <span>Share</span>
+            </Button>
+          </div>
+          
+          {/* Mobile layout - reaction and comment on top row, share below */}
+          <div className="md:hidden">
+            <div className="flex space-x-2 mb-4">
+              <div className="flex-1">
+                <ReactionButton
+                  reactions={article.reactions}
+                  userReaction={article.userReaction}
+                  onReactionChange={onReactionChange}
+                  availableReactions={article.availableReactions}
+                />
+              </div>
+              
+              <div className="flex-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onCommentClick}
+                  className="flex items-center justify-center space-x-2 w-full"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="text-sm">{comments.length} Comments</span>
+                </Button>
+              </div>
+            </div>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onShare}
+              className="flex items-center justify-center space-x-2 w-full"
             >
               <Share2 className="w-4 h-4" />
               <span>Share Article</span>
