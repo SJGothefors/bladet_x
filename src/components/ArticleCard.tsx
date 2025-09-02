@@ -32,8 +32,8 @@ export function ArticleCard({
       <div className="absolute inset-0 bg-gradient-overlay" />
       
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-end p-6 pb-24">
-        <div className="space-y-4 animate-fade-up">
+      <div className="relative h-full flex flex-col justify-end p-4 sm:p-6 pb-24">
+        <div className="space-y-3 sm:space-y-4 animate-fade-up max-w-sm sm:max-w-lg mx-auto sm:mx-0">
           {/* Category Badge and Location */}
           <div className="flex items-center space-x-2">
             <span className="px-3 py-1 bg-primary/20 backdrop-glass text-primary-foreground text-xs font-medium rounded-full">
@@ -47,26 +47,26 @@ export function ArticleCard({
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-bold leading-tight text-white">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-white">
             {article.title}
           </h1>
 
           {/* Summary */}
-          <p className="text-gray-100 leading-relaxed max-w-lg">
+          <p className="text-sm sm:text-base text-gray-100 leading-relaxed">
             {article.summary}
           </p>
 
           {/* Author and Time */}
-          <div className="flex items-center space-x-4 text-sm text-gray-300">
+          <div className="flex items-center space-x-4 text-xs sm:text-sm text-gray-300">
             <span>{article.author}</span>
             <div className="flex items-center space-x-1">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{formatDistanceToNow(new Date(article.publishedAt), { addSuffix: true })}</span>
             </div>
           </div>
 
            {/* Actions */}
-           <div className="flex items-center space-x-6">
+           <div className="flex items-center space-x-4 sm:space-x-6">
              <div onClick={(e) => e.stopPropagation()}>
                 <ReactionButton
                   reactions={article.reactions}
@@ -83,9 +83,9 @@ export function ArticleCard({
                 e.stopPropagation();
                 onCommentClick();
               }}
-              className="flex items-center space-x-2 text-sm text-white hover:text-white hover:bg-white/10"
+              className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-white hover:text-white hover:bg-white/10 px-2 sm:px-3"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>{comments.length}</span>
             </Button>
 
@@ -96,10 +96,10 @@ export function ArticleCard({
                 e.stopPropagation();
                 onShare();
               }}
-              className="flex items-center space-x-2 text-sm text-white hover:text-white hover:bg-white/10"
+              className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-white hover:text-white hover:bg-white/10 px-2 sm:px-3"
             >
-              <Share2 className="w-5 h-5" />
-              <span>Share</span>
+              <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">Share</span>
             </Button>
           </div>
         </div>

@@ -144,33 +144,51 @@ export function ArticleDetail({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between p-4 bg-card rounded-lg">
-          <div className="flex items-center space-x-6">
-            <ReactionButton
-              reactions={article.reactions}
-              userReaction={article.userReaction}
-              onReactionChange={onReactionChange}
-              availableReactions={article.availableReactions}
-            />
+        <div className="p-4 bg-card rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <ReactionButton
+                reactions={article.reactions}
+                userReaction={article.userReaction}
+                onReactionChange={onReactionChange}
+                availableReactions={article.availableReactions}
+              />
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onCommentClick}
+                className="flex items-center space-x-2"
+              >
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-sm sm:text-base">{comments.length} Comments</span>
+              </Button>
+            </div>
             
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onCommentClick}
-              className="flex items-center space-x-2"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span>{comments.length} Comments</span>
-            </Button>
-
+            {/* Share button on tablet/desktop - same row */}
+            <div className="hidden md:block">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onShare}
+                className="flex items-center space-x-2"
+              >
+                <Share2 className="w-5 h-5" />
+                <span>Share</span>
+              </Button>
+            </div>
+          </div>
+          
+          {/* Share button on mobile - separate row */}
+          <div className="md:hidden mt-4">
             <Button
               variant="ghost"
               size="sm"
               onClick={onShare}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 w-full justify-center"
             >
-              <Share2 className="w-5 h-5" />
-              <span>Share</span>
+              <Share2 className="w-4 h-4" />
+              <span>Share Article</span>
             </Button>
           </div>
         </div>

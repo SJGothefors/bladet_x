@@ -11,6 +11,7 @@ import { useToast } from '../hooks/use-toast';
 import VideoPage from './VideoPage';
 import PodcastPage from './PodcastPage';
 import MenuPage from './MenuPage';
+import MalServicePage from './MalServicePage';
 
 const Index = () => {
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
@@ -18,6 +19,7 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('start');
   const [showArticleDetail, setShowArticleDetail] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [showMalService, setShowMalService] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [articles, setArticles] = useState(mockArticles);
   const [comments, setComments] = useState(mockComments);
@@ -249,6 +251,7 @@ const Index = () => {
   if (activeTab === 'video') return <VideoPage activeTab={activeTab} onTabChange={setActiveTab} />;
   if (activeTab === 'podcast') return <PodcastPage activeTab={activeTab} onTabChange={setActiveTab} />;
   if (activeTab === 'menu') return <MenuPage onBackToStart={() => setActiveTab('start')} />;
+  if (showMalService) return <MalServicePage activeTab={activeTab} onTabChange={() => setShowMalService(false)} />;
 
   const currentArticle = filteredArticles[currentArticleIndex];
   const currentComments = comments.filter(c => c.articleId === currentArticle?.id);
@@ -261,6 +264,7 @@ const Index = () => {
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
           isScrolled={isScrolled}
+          onMalServiceClick={() => setShowMalService(true)}
         />
       )}
 
