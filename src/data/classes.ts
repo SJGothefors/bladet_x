@@ -34,3 +34,39 @@ export interface Comment {
     liked: boolean;
     parentId?: string;
 }
+
+export interface Podcast {
+    id: string;
+    title: string;
+    description: string;
+    category: 'News' | 'Sports' | 'Culture' | 'Politics';
+    creators: string[];
+    publishedAt: string;
+    duration: string; // e.g., "45:30"
+    imageUrl: string;
+    episodeNumber?: number;
+    reactions: {
+        like?: number;
+        thumbsUp?: number;
+        smile?: number;
+        angry?: number;
+        thumbsDown?: number;
+        crying?: number;
+        hearteyes?: number;
+        star?: number;
+    };
+    userReaction?: 'like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star';
+    availableReactions: ('like' | 'thumbsUp' | 'smile' | 'angry' | 'thumbsDown' | 'crying' | 'hearteyes' | 'star')[];
+}
+
+export interface PodcastComment {
+    id: string;
+    podcastId: string;
+    author: string;
+    content: string;
+    publishedAt: string;
+    createdAt: string;
+    likes: number;
+    liked: boolean;
+    parentId?: string;
+}
