@@ -20,7 +20,7 @@ export function NewsHeader({ activeCategory, onCategoryChange, isScrolled, onMal
         <div className={`px-4 transition-all duration-300 ${
           isScrolled ? 'py-2 text-sm opacity-70' : 'pt-4 pb-2 text-lg font-bold'
         }`}>
-          <span className="text-gradient">Bladet X</span>
+          <span className="text-gradient">Bladet X.com</span>
         </div>
         
         {/* Categories - Full Width Layout */}
