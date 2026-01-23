@@ -1,5 +1,5 @@
 import { BottomNavigation } from "@/components/BottomNavigation.tsx";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { mockVideos } from '@/data/mockVideoData';
 import { Video } from '@/data/classes';
 import { VideoCard } from '@/components/VideoCard';
@@ -15,6 +15,10 @@ export default function VideoPage({ activeTab, onTabChange }: VideoPageProps) {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [videos, setVideos] = useState<Video[]>(mockVideos);
   const [categoryFilter, setCategoryFilter] = useState<string>('All');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryFilter]);
 
   const categories = ['All', 'News', 'Sports', 'Culture', 'Politics'];
 

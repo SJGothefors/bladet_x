@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BottomNavigation } from "@/components/BottomNavigation.tsx";
 import { PodcastCard } from '@/components/PodcastCard';
 import { PodcastPlayer } from '@/components/PodcastPlayer';
@@ -14,6 +14,10 @@ interface PodcastPageProps {
 export default function PodcastPage({ activeTab, onTabChange }: PodcastPageProps) {
     const [selectedPodcast, setSelectedPodcast] = useState<Podcast | null>(null);
     const [categoryFilter, setCategoryFilter] = useState<string>('All');
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [categoryFilter]);
 
     const categories = ['All', 'News', 'Sports', 'Culture', 'Politics'];
     

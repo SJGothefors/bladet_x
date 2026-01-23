@@ -1,5 +1,5 @@
 import { BottomNavigation } from "@/components/BottomNavigation.tsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,10 @@ export default function MalServicePage({ activeTab, onTabChange }: MalServicePag
     const [selectedSport, setSelectedSport] = useState<string>('fotball');
     const [selectedLeague, setSelectedLeague] = useState<string>('all');
     const [showStandings, setShowStandings] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [selectedSport, selectedLeague, showStandings]);
 
     const hasLeagueFilter = ['fotball', 'hockey', 'handball'].includes(selectedSport);
     const leagues = hasLeagueFilter ? leaguesBySport[selectedSport] : [];
@@ -91,7 +95,7 @@ export default function MalServicePage({ activeTab, onTabChange }: MalServicePag
     };
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background overflow-y-auto">
             <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
                 <div className="container mx-auto px-4 py-4">
                     <h1 className="text-2xl font-bold text-gradient mb-4">Mål Service</h1>

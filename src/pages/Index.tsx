@@ -62,7 +62,7 @@ const Index = () => {
     };
 
     const handleWheel = (e: WheelEvent) => {
-      if (activeTab !== 'start' || showArticleDetail) return;
+      if (activeTab !== 'start' || showArticleDetail || showMalService) return;
       
       e.preventDefault();
       
@@ -85,7 +85,7 @@ const Index = () => {
       window.removeEventListener('wheel', handleWheel);
       clearTimeout(wheelTimeout);
     };
-  }, [activeTab, showArticleDetail, handleNextArticle, handlePrevArticle]);
+  }, [activeTab, showArticleDetail, showMalService, handleNextArticle, handlePrevArticle]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -251,7 +251,10 @@ const Index = () => {
   if (activeTab === 'video') return <VideoPage activeTab={activeTab} onTabChange={setActiveTab} />;
   if (activeTab === 'podcast') return <PodcastPage activeTab={activeTab} onTabChange={setActiveTab} />;
   if (activeTab === 'menu') return <MenuPage onBackToStart={() => setActiveTab('start')} />;
-  if (showMalService) return <MalServicePage activeTab={activeTab} onTabChange={() => setShowMalService(false)} />;
+  if (showMalService) return <MalServicePage activeTab={activeTab} onTabChange={(tab) => {
+    setShowMalService(false);
+    setActiveTab(tab);
+  }} />;
 
   const currentArticle = filteredArticles[currentArticleIndex];
   const currentComments = comments.filter(c => c.articleId === currentArticle?.id);
